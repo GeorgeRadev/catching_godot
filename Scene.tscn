@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://objects/palm1.gltf" type="PackedScene" id=1]
+[ext_resource path="res://textures/sand.jpg" type="Texture" id=2]
+[ext_resource path="res://objects/leaf.gltf" type="PackedScene" id=3]
+[ext_resource path="res://objects/leaf2.gltf" type="PackedScene" id=4]
+[ext_resource path="res://objects/palm2.gltf" type="PackedScene" id=5]
+[ext_resource path="res://objects/stone.gltf" type="PackedScene" id=6]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 2 )
+uv1_scale = Vector3( 50, 40, 1 )
+
+[node name="Root" type="Spatial"]
+
+[node name="SANDFLOOR" type="MeshInstance" parent="."]
+transform = Transform( 50, 0, 0, 0, 0.1, 0, 0, 0, 40, 0, -0.0851021, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="palm1" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.274404, 0, 0, 0, 0.274404, 0, 0, 0, 0.274404, 9.2484, 0.154912, -8.03475 )
+
+[node name="palm4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0393477, 0.0460148, -0.267641, 0.0411172, 0.268328, 0.040088, 0.268437, -0.0343555, -0.0453714, -9.0825, 0.154913, 5.73431 )
+
+[node name="palm2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.390198, 0.124387, 0.0781974, -0.0952333, 0.3831, -0.134187, -0.111882, 0.107718, 0.386937, -13.3334, -1.60829, -13.2165 )
+
+[node name="palm3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.416745, 0.012765, -0.00135138, -0.0116442, 0.394415, 0.134695, 0.00540216, -0.134594, 0.394584, 10.8406, -1.60829, 6.22477 )
+
+[node name="stone1" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8636, 0.530779, 0 )
+
+[node name="stone2" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.855915, -0.517116, 0, 0.517116, 0.855915, 0, 0, 0, 1, -10.3563, 0.294296, -0.00171041 )
+
+[node name="stone3" parent="." instance=ExtResource( 6 )]
+transform = Transform( -0.0527594, 0.0318755, -0.998098, 0.517116, 0.855915, 0, 0.854288, -0.516133, -0.0616409, -0.379612, 1.04547, -9.2217 )
+
+[node name="stone4" parent="." instance=ExtResource( 6 )]
+transform = Transform( -0.067033, 0.0509888, -1.35596, 0.0395926, 0.0381774, 0.229051, 0.854288, -0.516133, -0.0616409, -0.379612, 0.45943, 7.79843 )
+
+[node name="leaf1" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.782069, 0.185266, 0.595017, -0.0776538, 0.976318, -0.201923, -0.618335, 0.111712, 0.777934, -10.0965, 0.800707, -3.11891 )
+
+[node name="leaf6" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.782069, 0.185266, 0.595017, -0.268458, 0.961811, 0.0533804, -0.562404, -0.201485, 0.801938, 2.644, 0.628061, 8.24897 )
+
+[node name="leaf9" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.782069, 0.185266, 0.595017, -0.0527005, 0.97103, -0.233074, -0.62096, 0.150922, 0.769175, 2.70612, 0.628061, -10.6392 )
+
+[node name="leaf7" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.363909, -0.254035, 0.896123, -0.356279, 0.926889, 0.118073, -0.860602, -0.276303, -0.427811, -3.61319, 1.36936, 8.24897 )
+
+[node name="leaf8" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.363909, -0.254035, 0.896123, -0.356279, 0.926889, 0.118073, -0.860602, -0.276303, -0.427811, 4.78622, 1.36936, 8.24897 )
+
+[node name="leaf11" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.75739, -0.432681, -0.489026, 0.460254, 0.885007, -0.0702096, 0.463171, -0.1719, 0.869439, 9.89829, 1.36936, 3.26738 )
+
+[node name="leaf3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.14454, 0.10611, -1.28342, -0.577394, 1.57707, -0.384524, 1.1511, 0.685554, 1.08322, -5.03142, 1.31889, -9.38291 )
+
+[node name="leaf2" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.701258, 0.268146, 0.660556, 0.00889589, 0.923203, -0.38421, -0.712851, 0.275307, 0.645018, -8.74333, 1.43869, -5.4891 )
+
+[node name="leaf4" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.862388, -0.201573, -0.464385, 0.00889589, 0.923203, -0.38421, 0.506169, 0.327207, 0.797953, 6.35739, 0.856534, -9.60801 )
+
+[node name="leaf5" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.872791, -0.0322723, -0.487026, -0.0246716, 0.999453, -0.0220144, 0.48747, -0.00719792, -0.87311, 8.61238, 0.523529, 7.19578 )
+
+[node name="leaf10" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.491268, -0.0312996, -0.870446, -0.0246716, 0.999453, -0.0220144, 0.870659, 0.0106606, -0.491772, 9.66407, 0.523529, -5.37799 )

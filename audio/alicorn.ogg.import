@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/alicorn.ogg-b2aa21ba970c5bfbc33064609ff9510e.oggstr"
+
+[deps]
+
+source_file="res://audio/alicorn.ogg"
+dest_files=[ "res://.import/alicorn.ogg-b2aa21ba970c5bfbc33064609ff9510e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

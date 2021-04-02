@@ -1,0 +1,132 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.5.17",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "star",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "scale" : [
+                1.5114455223083496,
+                1.5114455223083496,
+                1.5114455223083496
+            ],
+            "translation" : [
+                0,
+                0,
+                0.023516355082392693
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "star_mat",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.7925738096237183,
+                    0.8000000715255737,
+                    0.0022819016594439745,
+                    1
+                ],
+                "metallicFactor" : 0
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "star",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 12,
+            "max" : [
+                1.6145000457763672,
+                0.5220999717712402,
+                1.3981000185012817
+            ],
+            "min" : [
+                -1.591599941253662,
+                -0.5965999960899353,
+                -1.3981000185012817
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 12,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 12,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 60,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 144,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 144,
+            "byteOffset" : 144
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 96,
+            "byteOffset" : 288
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 120,
+            "byteOffset" : 384
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 504,
+            "uri" : "data:application/octet-stream;base64,DJOZP+xROL2MSrI/oyM5PKTfPr1KDHI/7Q0+PMe6GL9Wfa499ihsP5tVH72Wssw+HqfoO1ioBT+ASL898KfOP/5l97w5Rce+hJ6Vv/d1YL3x9LI/z2Zlv+0NPr3gvs4+jLnLv+qVMr2cosO+cawbPwMJCr1PHva+ppvEO/yp8bzx9LK/4ukVv+SDHr2GyfS+ddIsP9bEdLvT2zw/JCVbO9TmK7wH/H8/RvVJO2Xlf78xCei88eR7P3+JBLpOqDY+4Ripu9r4fz+qsmK87j5wP8dGrDtZ0bC+rLMrv5CEGLx93T0/jLh7v6f5D7wvOjo+Jpxwv7IDKrt7166+xNLdPq5HoTsKuWa/u/iBu06RxDtO/n+/nP3hvnT2pTp3tmW/ObRYP35qXL8hHwQ/TvN+vxrAuz44Ree+e4N/Pz6bFb81Xio/RBzrvlafaz/IEEe+xyk6PlrTXL9xrAs9aisWvxsv3T3gAkm+RdhAPyDkA70hHwQ/oAPnPBfZjj6gZQi9AAABAAIAAwAAAAIAAAAEAAEAAwAEAAAAAwACAAUAAwAFAAQABgAEAAcAAQAEAAYABwAEAAgABAAJAAoACwAEAAoABQAJAAQACAAEAAsAAQAGAAIABgAHAAIABwAIAAIACAALAAIACwAKAAIABQACAAkAAgAKAAkA"
+        }
+    ]
+}
