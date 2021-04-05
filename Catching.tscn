@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Catching.gd" type="Script" id=1]
 [ext_resource path="res://Scene.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://audio/alicorn.ogg" type="AudioStream" id=11]
 [ext_resource path="res://audio/popcorn.ogg" type="AudioStream" id=12]
 [ext_resource path="res://audio/star.ogg" type="AudioStream" id=13]
+[ext_resource path="res://DonaldDuck.tscn" type="PackedScene" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -70,12 +71,14 @@ light_energy = 0.34
 light_indirect_energy = 0.0
 shadow_enabled = true
 
+[node name="Scene" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0321016, 0 )
+
 [node name="CHIP" parent="." instance=ExtResource( 7 )]
 
 [node name="DALE" parent="." instance=ExtResource( 4 )]
 
-[node name="Scene" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0321016, 0 )
+[node name="DONALD" parent="." instance=ExtResource( 14 )]
 
 [node name="FALLINGS" type="Spatial" parent="."]
 
@@ -95,7 +98,7 @@ transform = Transform( 0.4, 0, 0, 0, 0.34641, 0.2, 0, -0.2, 0.34641, 0, 1, 0 )
 
 [node name="countCHIP" type="Button" parent="."]
 margin_right = 200.0
-margin_bottom = 84.0
+margin_bottom = 50.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "CHIP: 0"
@@ -107,12 +110,25 @@ __meta__ = {
 
 [node name="countDALE" type="Button" parent="."]
 margin_left = 1.0
-margin_top = 69.0
+margin_top = 50.0
 margin_right = 201.0
-margin_bottom = 153.0
+margin_bottom = 100.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "DALE: 0"
+flat = true
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="countDONALD" type="Button" parent="."]
+margin_top = 100.0
+margin_right = 200.0
+margin_bottom = 150.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0823529, 0.227451, 0.658824, 1 )
+text = "DONALD: 0"
 flat = true
 align = 2
 __meta__ = {
@@ -129,7 +145,7 @@ margin_top = -37.5
 margin_right = 300.0
 margin_bottom = 37.5
 custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.894118, 0.121569, 0.121569, 1 )
 text = "Message Text"
 flat = true
 __meta__ = {

@@ -6,6 +6,7 @@ onready var cameraR:Camera = $ViewportContainerR/ViewportR/CameraR
 
 onready var CHIP:Spatial = $CHIP
 onready var DALE:Spatial = $DALE
+onready var DONALD:Spatial = $DONALD
 onready var FALLINGS:Spatial = $FALLINGS
 onready var templates:Spatial = $Templates
 onready var alicorn:Spatial = $Templates/alicorn
@@ -15,6 +16,7 @@ onready var star:Spatial = $Templates/star
 
 onready var countCHIP:Button = $countCHIP
 onready var countDALE:Button = $countDALE
+onready var countDONALD:Button = $countDONALD
 onready var messageText:Button = $messageText
 
 onready var audioAlicorn:AudioStreamPlayer = $audioAlicorn
@@ -34,16 +36,21 @@ var positionDALE:Vector3 = Vector3(2,0,0)
 var directionDALE:Vector3 = Vector3(0,0,-1)
 var speedDALE:float = 0
 
+var positionDONALD:Vector3 = Vector3(-5,0,-5)
+var directionDONALD:Vector3 = Vector3(1,0,1)
+var speedDONALD:float = 0
+
 const arenaSize:float = 5.5
 var fallSpeed:Vector3
 var fallingObjects:Array = []
-var popRate:float = 3.0
+var popRate:float
 var currentRate:float = 0.0
 
 const catchCountThreshold:int = 20
 var winTimeout:float = -1
 var catchCountCHIP:int = 0
 var catchCountDALE:int = 0
+var catchCountDONALD:int = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -53,8 +60,10 @@ func _ready():
 	templates.visible = false
 	CHIP.visible = true
 	DALE.visible = true
+	DONALD.visible = true
 	CHIP.get_child(1).play("idle")
 	DALE.get_child(1).play("idle")
+	DONALD.get_child(1).play("idle")
 	set_process_input(true)
 	resize()
 	reset()
@@ -62,14 +71,17 @@ func _ready():
 	
 func reset():
 	winTimeout = -1
-	popRate = 3
+	popRate = 0.7
 	fallSpeed = Vector3(0,2,0)
 	positionCHIP = Vector3(-2,0,0)
-	directionCHIP = Vector3(0,0,1)
 	positionDALE = Vector3(2,0,0)
+	positionDONALD = Vector3(-5,0,-5)
+	directionCHIP = Vector3(0,0,1)
 	directionDALE = Vector3(0,0,1)
+	directionDONALD = Vector3(1,0,1)
 	catchCountCHIP = 0
 	catchCountDALE = 0
+	catchCountDONALD = 0
 	fallingObjects.clear()
 	delete_children(FALLINGS)
 	updateText()
@@ -78,6 +90,7 @@ func reset():
 func updateText():
 	countCHIP.text = "CHIP:  " + str(catchCountCHIP)
 	countDALE.text = "DALE:  " + str(catchCountDALE)
+	countDONALD.text = "DONALD:  " + str(catchCountDONALD)
 
 var messageTextDissapear:float = -1
 func setMessageText(s:String, secconds:int):
@@ -87,7 +100,7 @@ func setMessageText(s:String, secconds:int):
 func _input(_ev):
 		#reset
 	if Input.is_key_pressed(KEY_R): reset()
-	# we hav a winner
+	# no winner yet
 	if winTimeout < 0:
 		#dale movements
 		var vectorDALE:Vector3 = v0
@@ -110,6 +123,15 @@ func _input(_ev):
 			speedCHIP = 1.0
 			directionCHIP = 0.3 * directionCHIP + 2 * vectorCHIP.normalized()
 			directionCHIP = directionCHIP.normalized()
+		
+		#donald movement to the first non-taken element
+		if fallingObjects.size() > 0:
+			var lastObject:Spatial = fallingObjects[fallingObjects.size()-1]
+			var distVector = (lastObject.translation - positionDONALD)
+			distVector.y = 0
+			distVector.normalized()
+			directionDONALD = distVector
+			speedDONALD = 1
 	
 		if Input.is_action_just_pressed("3d_toggle"):
 			OS.window_fullscreen = not OS.window_fullscreen
@@ -137,14 +159,16 @@ func _process(delta):
 	hideMessageText(delta)
 	# we hav a winner
 	if winTimeout > 0:
-		winTimeout -=delta
+		winTimeout -= delta
 		if winTimeout < 0: reset()
-		if catchCountCHIP >= catchCountThreshold:
+		if catchCountCHIP + catchCountDALE >= catchCountThreshold:
 			CHIP.get_child(1).play("win")
-			DALE.get_child(1).play("lose")
-		elif catchCountDALE >= catchCountThreshold:
-			CHIP.get_child(1).play("lose")
 			DALE.get_child(1).play("win")
+			DONALD.get_child(1).play("lose")
+		else:
+			CHIP.get_child(1).play("lose")
+			DALE.get_child(1).play("lose")
+			DONALD.get_child(1).play("win")
 	else:
 		# normal game cycle
 		movementAndInertial(delta)
@@ -179,6 +203,20 @@ func movementAndInertial(delta):
 	else:
 		speedCHIP = 0
 		CHIP.get_child(1).play("idle")
+	#DONALD
+	directionDONALD.normalized()
+	var newPositionDONALD = positionDONALD + delta * speedDONALD * directionDONALD
+	if abs(newPositionDONALD.x) < arenaSize and abs(newPositionDONALD.z) < arenaSize:
+		positionDONALD = newPositionDONALD
+	DONALD.transform = Basis.IDENTITY
+	DONALD.translate(positionDONALD)
+	DONALD.rotate_y(atan2(-directionDONALD.z, directionDONALD.x))
+	if speedDONALD > 0.2: 
+		speedDONALD -= 2 * delta
+		DONALD.get_child(1).play("run")
+	else:
+		speedDONALD = 0
+		DONALD.get_child(1).play("idle")
 
 func hideMessageText(delta):
 	if messageTextDissapear > 0:
@@ -189,38 +227,52 @@ func hideMessageText(delta):
 		if messageTextDissapear < 0:
 			messageText.text = ""
 
+func sort_nan(a, b):
+	return (a < b or b != b)
+
 func checkColisions():
 	# check bone
 	for ix in range(fallingObjects.size()-1, -1, -1):
 		var chipWin = hasColision(positionCHIP, fallingObjects[ix].translation) 
 		var daleWin = hasColision(positionDALE, fallingObjects[ix].translation)
+		var donaldWin = hasColision(positionDONALD, fallingObjects[ix].translation)
 
-		if chipWin == chipWin or daleWin == daleWin:
+		if chipWin == chipWin or daleWin == daleWin or donaldWin == donaldWin:
 			FALLINGS.remove_child(fallingObjects[ix])
 			fallingObjects.remove(ix)
 			# play coin 
 			audioAlicorn.play()
-			# using that NaN is false for all operations, except NaN != NaN
-			if chipWin < daleWin or daleWin != daleWin: 
-				catchCountCHIP += 1
-			if daleWin < chipWin or chipWin != chipWin: 
-				catchCountDALE += 1
-			updateText()
-			# we have winner
-			if catchCountCHIP >= catchCountThreshold:
-				winTimeout = 6
-				setMessageText("CHIP is a WINNER !!!", winTimeout)
-			elif catchCountDALE >= catchCountThreshold:
-				winTimeout = 6
-				setMessageText("DALE is a WINNER !!!", winTimeout)
-			# face the camera on winning
-			if winTimeout > 0:
-				CHIP.transform = Basis.IDENTITY
-				CHIP.translate(positionCHIP)
-				CHIP.rotate_y(PI*3/2)
-				DALE.transform = Basis.IDENTITY
-				DALE.translate(positionDALE)
-				DALE.rotate_y(PI*3/2)
+			# sort dostances
+			var distances: Array = [chipWin, daleWin, donaldWin]
+			distances.sort_custom(self, "sort_nan")
+			var win:float = distances[0]
+			if win == win:
+				# using that NaN is false for all operations, except NaN != NaN
+				if chipWin == win: 
+					catchCountCHIP += 1
+				elif daleWin == win: 
+					catchCountDALE += 1
+				elif donaldWin == win: 
+					catchCountDONALD += 1
+				updateText()
+				# we have winner
+				if catchCountCHIP + catchCountDALE>= catchCountThreshold:
+					winTimeout = 6
+					setMessageText("CHIP & DALE are WINNERS !!!", winTimeout)
+				elif catchCountDONALD >= catchCountThreshold:
+					winTimeout = 6
+					setMessageText("DONALD is a WINNER !!!", winTimeout)
+				# face the camera on winning/loosing
+				if winTimeout > 0:
+					CHIP.transform = Basis.IDENTITY
+					CHIP.translate(positionCHIP)
+					CHIP.rotate_y(PI*3/2)
+					DALE.transform = Basis.IDENTITY
+					DALE.translate(positionDALE)
+					DALE.rotate_y(PI*3/2)
+					DONALD.transform = Basis.IDENTITY
+					DONALD.translate(positionDONALD)
+					DONALD.rotate_y(PI*3/2)
 
 func generateObjects(delta):
 	var obj = null
