@@ -5,8 +5,11 @@ onready var cameraL:Camera = $ViewportContainerL/ViewportL/CameraL
 onready var cameraR:Camera = $ViewportContainerR/ViewportR/CameraR
 
 onready var CHIP:Spatial = $CHIP
+onready var CHIP_Animation:AnimationPlayer = $CHIP/AnimationPlayer
 onready var DALE:Spatial = $DALE
+onready var DALE_Animation:AnimationPlayer = $DALE/AnimationPlayer
 onready var DONALD:Spatial = $DONALD
+onready var DONALD_Animation:AnimationPlayer = $DONALD/AnimationPlayer
 onready var FALLINGS:Spatial = $FALLINGS
 onready var templates:Spatial = $Templates
 onready var alicorn:Spatial = $Templates/alicorn
@@ -61,9 +64,9 @@ func _ready():
 	CHIP.visible = true
 	DALE.visible = true
 	DONALD.visible = true
-	CHIP.get_child(1).play("idle")
-	DALE.get_child(1).play("idle")
-	DONALD.get_child(1).play("idle")
+	CHIP_Animation.play("idle")
+	DALE_Animation.play("idle")
+	DONALD_Animation.play("idle")
 	set_process_input(true)
 	resize()
 	reset()
@@ -71,7 +74,7 @@ func _ready():
 	
 func reset():
 	winTimeout = -1
-	popRate = 0.7
+	popRate = 0.5
 	fallSpeed = Vector3(0,2,0)
 	positionCHIP = Vector3(-2,0,0)
 	positionDALE = Vector3(2,0,0)
@@ -93,9 +96,9 @@ func updateText():
 	countDONALD.text = "DONALD:  " + str(catchCountDONALD)
 
 var messageTextDissapear:float = -1
-func setMessageText(s:String, secconds:int):
+func setMessageText(s:String, seconds:float):
 	messageText.text = s
-	messageTextDissapear = secconds
+	messageTextDissapear = seconds
 
 func _input(_ev):
 		#reset
@@ -162,13 +165,13 @@ func _process(delta):
 		winTimeout -= delta
 		if winTimeout < 0: reset()
 		if catchCountCHIP + catchCountDALE >= catchCountThreshold:
-			CHIP.get_child(1).play("win")
-			DALE.get_child(1).play("win")
-			DONALD.get_child(1).play("lose")
+			CHIP_Animation.play("win")
+			DALE_Animation.play("win")
+			DONALD_Animation.play("lose")
 		else:
-			CHIP.get_child(1).play("lose")
-			DALE.get_child(1).play("lose")
-			DONALD.get_child(1).play("win")
+			CHIP_Animation.play("lose")
+			DALE_Animation.play("lose")
+			DONALD_Animation.play("win")
 	else:
 		# normal game cycle
 		movementAndInertial(delta)
@@ -181,42 +184,42 @@ func movementAndInertial(delta):
 	var newPositionDALE = positionDALE + delta * 4 * speedDALE * directionDALE
 	if abs(newPositionDALE.x) < arenaSize and abs(newPositionDALE.z) < arenaSize:
 		positionDALE = newPositionDALE
-	DALE.transform = Basis.IDENTITY
+	DALE.transform = Transform.IDENTITY
 	DALE.translate(positionDALE)
 	DALE.rotate_y(atan2(-directionDALE.z, directionDALE.x))
 	if speedDALE > 0.2:
 		speedDALE -= 2 * delta
-		DALE.get_child(1).play("run")
+		DALE_Animation.play("run")
 	else:
 		speedDALE = 0
-		DALE.get_child(1).play("idle")
+		DALE_Animation.play("idle")
 	#CHIP
 	var newPositionCHIP = positionCHIP + delta * 4 * speedCHIP * directionCHIP
 	if abs(newPositionCHIP.x) < arenaSize and abs(newPositionCHIP.z) < arenaSize:
 		positionCHIP = newPositionCHIP
-	CHIP.transform = Basis.IDENTITY
+	CHIP.transform = Transform.IDENTITY
 	CHIP.translate(positionCHIP)
 	CHIP.rotate_y(atan2(-directionCHIP.z, directionCHIP.x))
 	if speedCHIP > 0.2: 
 		speedCHIP -= 2 * delta
-		CHIP.get_child(1).play("run")
+		CHIP_Animation.play("run")
 	else:
 		speedCHIP = 0
-		CHIP.get_child(1).play("idle")
+		CHIP_Animation.play("idle")
 	#DONALD
-	directionDONALD.normalized()
+	directionDONALD = directionDONALD.normalized()
 	var newPositionDONALD = positionDONALD + delta * speedDONALD * directionDONALD
 	if abs(newPositionDONALD.x) < arenaSize and abs(newPositionDONALD.z) < arenaSize:
 		positionDONALD = newPositionDONALD
-	DONALD.transform = Basis.IDENTITY
+	DONALD.transform = Transform.IDENTITY
 	DONALD.translate(positionDONALD)
 	DONALD.rotate_y(atan2(-directionDONALD.z, directionDONALD.x))
 	if speedDONALD > 0.2: 
 		speedDONALD -= 2 * delta
-		DONALD.get_child(1).play("run")
+		DONALD_Animation.play("run")
 	else:
 		speedDONALD = 0
-		DONALD.get_child(1).play("idle")
+		DONALD_Animation.play("idle")
 
 func hideMessageText(delta):
 	if messageTextDissapear > 0:
@@ -264,13 +267,13 @@ func checkColisions():
 					setMessageText("DONALD is a WINNER !!!", winTimeout)
 				# face the camera on winning/loosing
 				if winTimeout > 0:
-					CHIP.transform = Basis.IDENTITY
+					CHIP.transform = Transform.IDENTITY
 					CHIP.translate(positionCHIP)
 					CHIP.rotate_y(PI*3/2)
-					DALE.transform = Basis.IDENTITY
+					DALE.transform = Transform.IDENTITY
 					DALE.translate(positionDALE)
 					DALE.rotate_y(PI*3/2)
-					DONALD.transform = Basis.IDENTITY
+					DONALD.transform = Transform.IDENTITY
 					DONALD.translate(positionDONALD)
 					DONALD.rotate_y(PI*3/2)
 

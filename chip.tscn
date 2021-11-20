@@ -2,4 +2,5 @@
 
 [ext_resource path="res://ChipDale/chip.gltf" type="PackedScene" id=1]
 
+
 [node name="player" instance=ExtResource( 1 )]
