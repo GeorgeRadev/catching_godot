@@ -2,5 +2,9 @@
 
 [ext_resource path="res://objects/DonaldDuck.gltf" type="PackedScene" id=1]
 
-[node name="DonaldDuck" index="0" instance=ExtResource( 1 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+[node name="DONALD" type="Spatial"]
+
+[node name="DonaldDuck" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1.04925e-07, 0, -2.4004, 0, 2.4004, 0, 2.4004, 0, -1.04925e-07, 0, 0, 0 )
+
+[editable path="DonaldDuck"]

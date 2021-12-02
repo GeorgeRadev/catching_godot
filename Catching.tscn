@@ -81,7 +81,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0321016, 0 )
 [node name="DALE" parent="." instance=ExtResource( 4 )]
 
 [node name="DONALD" parent="." instance=ExtResource( 5 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+transform = Transform( 1.44153, 0, 0, 0, 1.44153, 0, 0, 0, 1.44153, 0, 0, 0 )
 
 [node name="FALLINGS" type="Spatial" parent="."]
 
@@ -102,8 +102,8 @@ transform = Transform( 0.4, 0, 0, 0, 0.34641, 0.2, 0, -0.2, 0.34641, 0, 1, 0 )
 [node name="countCHIP" type="Button" parent="."]
 margin_right = 200.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "CHIP: 0"
 flat = true
 align = 2
@@ -116,8 +116,8 @@ margin_left = 1.0
 margin_top = 50.0
 margin_right = 201.0
 margin_bottom = 100.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "DALE: 0"
 flat = true
 align = 2
@@ -129,8 +129,8 @@ __meta__ = {
 margin_top = 100.0
 margin_right = 200.0
 margin_bottom = 150.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.0823529, 0.227451, 0.658824, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "DONALD: 0"
 flat = true
 align = 2
@@ -147,8 +147,8 @@ margin_left = -300.0
 margin_top = -37.5
 margin_right = 300.0
 margin_bottom = 37.5
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.894118, 0.121569, 0.121569, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Message Text"
 flat = true
 __meta__ = {
